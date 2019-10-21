@@ -1,26 +1,40 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { Component } from 'react';
 import './App.css';
+import ScreenCapture from './ScreenCapture';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      screenCapture: ''
+    }
+  }
+
+  handleScreenCapture = (screenCapture) => {
+    this.setState({
+      screenCapture
+    })
+  }
+
+  render() {
+    const { screenCapture } = this.state
+
+    return (
+      <ScreenCapture onEndCapture={ this.handleScreenCapture }>
+        { ({ onStartCapture }) => (
+          <React.Fragment>
+            <div>
+              <h2>Start editing to see more magic happen</h2>
+            </div>
+            <button onClick={ onStartCapture }>Capture</button>
+            <br/>
+            <br/>
+            <img src={ screenCapture }/>
+          </React.Fragment>
+        ) }
+      </ScreenCapture>
+    );
+  }
 }
 
 export default App;
